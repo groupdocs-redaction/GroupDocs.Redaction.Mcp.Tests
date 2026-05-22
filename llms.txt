@@ -1,0 +1,47 @@
+# GroupDocs.Redaction.Mcp.Tests
+
+Integration tests and deployment how-to guides for GroupDocs.Redaction.Mcp — the MCP server that exposes GroupDocs.Redaction for .NET to AI agents (Claude, Cursor, VS Code / GitHub Copilot, and other MCP-compatible clients).
+
+This repo validates the **published NuGet artifact** end-to-end and doubles as a reference for using it from every supported channel.
+
+## Primary repository
+
+- MCP server source + package: https://github.com/groupdocs-redaction/GroupDocs.Redaction.Mcp
+- NuGet package: https://www.nuget.org/packages/GroupDocs.Redaction.Mcp
+- Docker images: ghcr.io/groupdocs-redaction/redaction-net-mcp and docker.io/groupdocs/redaction-net-mcp
+
+## Deployment channels covered by how-to guides
+
+- how-to/01-install-from-nuget.md — dnx (recommended) + global dotnet tool
+- how-to/02-run-via-docker.md — container image + docker-compose
+- how-to/03-verify-mcp-registry.md — MCP registry discovery and NuGet.org auto-generated mcp.json
+- how-to/04-use-with-claude-desktop.md — Claude Desktop stdio config
+- how-to/05-use-with-vscode-copilot.md — VS Code / GitHub Copilot config with prompt-string inputs
+- how-to/06-run-integration-tests.md — run this repo's test suite locally and in CI
+
+## MCP tools exposed by the server
+
+- redact_text — redacts text matching a regex pattern; params: file, pattern (required), replacement (default "[REDACTED]"), password. Output: {name}_redacted{ext}.
+- erase_metadata — erases document metadata fields; params: file, fields (comma-separated, default "All"; e.g. "Author,Company,CreatedTime"), password. Output: {name}_redacted{ext}.
+- redact_annotations — redacts or deletes annotations (comments); params: file, pattern (optional regex), replacement (default "[REDACTED]"), deleteAll (bool, default false), password. Output: {name}_redacted{ext}.
+- redact_image_area — covers a rectangular page region with a solid color box; params: file, x, y, width, height (ints, pixels), color (named or hex, default "Black"), password. Output: {name}_redacted{ext}.
+- get_document_info — read-only; returns JSON with fileName, fileType, pageCount, size, pages[] ({number,width,height}); params: file, password.
+
+## Environment variables
+
+- GROUPDOCS_MCP_STORAGE_PATH — base folder for input + output (defaults to current working directory)
+- GROUPDOCS_MCP_OUTPUT_PATH — optional, routes output files to a separate folder
+- GROUPDOCS_LICENSE_PATH — path to GroupDocs.Total.lic; omit for evaluation mode (output will be watermarked but operations succeed)
+
+## Key facts for AI agents
+
+- Testing the shipped NuGet, not the source. No project reference to the server.
+- Tool names on the wire are snake_case: redact_text, erase_metadata, redact_annotations, redact_image_area, get_document_info.
+- All redaction tools succeed in evaluation mode — GroupDocs.Redaction.Save() works without a license. Output is watermarked; a license only removes the watermark.
+- Output filename convention: {name}_redacted{ext} (e.g. sample_redacted.pdf).
+- Sample documents are in sample-docs/: sample.docx, sample.pdf, sample.xlsx, annotated.xlsx.
+- Target framework is net10.0 only. Requires .NET 10 SDK for dnx.
+
+## License
+
+MIT — see LICENSE

@@ -68,19 +68,26 @@ dotnet test -c Release --filter "FullyQualifiedName~ErrorHandling"
 
 ```
 Passed  ToolDiscoveryTests.ServerInfo_AdvertisesGroupDocsRedactionMcp
-Passed  ToolDiscoveryTests.ListTools_ExposesAllFiveTools
+Passed  ToolDiscoveryTests.ListTools_ExposesAllFiveRedactionTools
 Passed  ToolDiscoveryTests.AllTools_HaveNonEmptyDescriptionAndInputSchema
-Passed  RedactTextTests.RedactText_Docx_WritesRedactedOutput
-Passed  RedactTextTests.RedactText_Pdf_WritesRedactedOutput
-Passed  EraseMetadataTests.EraseMetadata_Docx_WritesRedactedOutput
-Passed  RedactAnnotationsTests.RedactAnnotations_AnnotatedXlsx_WritesRedactedOutput
-Passed  RedactImageAreaTests.RedactImageArea_Pdf_WritesRedactedOutput
-Passed  GetDocumentInfoTests.GetDocumentInfo_Pdf_ReturnsFileInfo
-Passed  GetDocumentInfoTests.GetDocumentInfo_Docx_ReturnsFileInfo
-Passed  ErrorHandlingTests.RedactText_UnknownFile_ReturnsErrorListingAvailableFiles
-Passed  ErrorHandlingTests.PasswordParameter_IsAcceptedByTool
+Passed  RedactTextTests.RedactText_RealSample_WritesRedactedOutput (sample.docx)
+Passed  RedactTextTests.RedactText_RealSample_WritesRedactedOutput (sample.pdf)
+Passed  RedactTextTests.RedactText_AcceptsPasswordParameter
+Passed  EraseMetadataTests.EraseMetadata_AllFields_WritesCleanedOutput (sample.docx)
+Passed  EraseMetadataTests.EraseMetadata_AllFields_WritesCleanedOutput (sample.xlsx)
+Passed  EraseMetadataTests.EraseMetadata_SpecificFields_Succeeds
+Passed  RedactAnnotationsTests.RedactAnnotations_ReplaceMatching_WritesRedactedOutput
+Passed  RedactAnnotationsTests.RedactAnnotations_DeleteAll_WritesRedactedOutput
+Passed  RedactImageAreaTests.RedactImageArea_Pdf_CompletesAndKeepsServerResponsive
+Passed  RedactImageAreaTests.RedactImageArea_AcceptsHexColor
+Passed  GetDocumentInfoTests.GetDocumentInfo_RealSample_ReturnsFileTypeAndPageCount (sample.pdf)
+Passed  GetDocumentInfoTests.GetDocumentInfo_RealSample_ReturnsFileTypeAndPageCount (sample.docx)
+Passed  GetDocumentInfoTests.GetDocumentInfo_Pdf_ReportsPageDimensions
+Passed  ErrorHandlingTests.GetDocumentInfo_UnknownFile_ReturnsErrorOrAvailableFilesHint
+Passed  ErrorHandlingTests.RedactText_CorruptedFile_DoesNotCrashServer
+Passed  ErrorHandlingTests.GetDocumentInfo_PasswordParameter_IsAccepted
 
-Total: 12, Passed: 12, Time: ~13s
+Total: 19, Passed: 19, Time: ~13s
 ```
 
 The first test run is slower (~60s) because `dnx` downloads the package into

@@ -88,4 +88,4 @@ docker system prune -a
 
 # ===== EXPECTED OUTPUT =====
 # ✓ All integration test scenarios completed!
-# Total: 12, Passed: 12, Time: ~13s
+# Total: 19, Passed: 19, Time: ~13s

@@ -4,7 +4,7 @@ Step-by-step guides for verifying and using every deployment channel of
 [`GroupDocs.Redaction.Mcp`](https://www.nuget.org/packages/GroupDocs.Redaction.Mcp).
 
 Each guide is self-contained — pick the one that matches your workflow. They
-all point at the same published artifact (`26.5.0` at time of writing).
+all point at the same published artifact (`26.5.1` at time of writing).
 
 | # | Guide | When to use |
 |---|---|---|
@@ -27,7 +27,7 @@ all point at the same published artifact (`26.5.0` at time of writing).
 
 ## Common context
 
-- All guides target `GroupDocs.Redaction.Mcp@26.5.0`. Substitute a newer version
+- All guides target `GroupDocs.Redaction.Mcp@26.5.1`. Substitute a newer version
   freely — the interfaces haven't changed.
 - Tools exposed on the wire are `redact_text`, `erase_metadata`,
   `redact_annotations`, `redact_image_area`, and `get_document_info` (snake_case).

@@ -47,10 +47,19 @@ public class RedactImageAreaTests : McpServerTestBase
         var body = ToolResponse.Text(response);
         _output.WriteLine(body);
 
-        // Exercises the System.Drawing / libgdiplus native path. The box-drawing
-        // result depends on page content, so success isn't required — but when the
-        // tool reports success, the redacted file must be on disk.
-        if (!(response.IsError ?? false))
+        // Exercises the System.Drawing / GDI+ native path. Image-area redaction
+        // needs GDI+: built into Windows, but on Linux/macOS the underlying
+        // Aspose.Pdf path P/Invokes `gdiplus.dll`, which is frequently unavailable
+        // to the dnx-launched server (the .NET loader probes `gdiplus.dll` /
+        // `libgdiplus.dll`, not the system `libgdiplus.so` / `.dylib`). The tool
+        // surfaces that as a graceful "Image area redaction failed" message rather
+        // than crashing. So success isn't required — but WHEN the tool reports
+        // success, the redacted file must be on disk. Either way the server must
+        // stay responsive.
+        var redactionFailed = (response.IsError ?? false)
+            || body.Contains("Image area redaction failed", StringComparison.OrdinalIgnoreCase);
+
+        if (!redactionFailed)
         {
             Assert.True(File.Exists(outputPath),
                 $"Tool reported success but no output at '{outputPath}'. Response body:\n{body}");

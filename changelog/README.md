@@ -21,7 +21,7 @@ Per-change notes for the GroupDocs.Redaction.Mcp integration tests repo, capture
 ---
 id: 001
 date: 2026-05-22
-package-under-test: 26.5.0   # version of GroupDocs.Redaction.Mcp the suite targets
+package-under-test: 26.5.1   # version of GroupDocs.Redaction.Mcp the suite targets
 type: feature | fix | refactor | docs | chore | breaking
 ---
 

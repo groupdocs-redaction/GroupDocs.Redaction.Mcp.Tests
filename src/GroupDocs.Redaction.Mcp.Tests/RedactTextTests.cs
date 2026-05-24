@@ -7,15 +7,12 @@ namespace GroupDocs.Redaction.Mcp.IntegrationTests;
 /// RedactText calls Redactor.Save(), which GroupDocs.Redaction permits in
 /// evaluation mode (the saved file is watermarked rather than blocked). So these
 /// tests verify end-to-end output-file creation without requiring a license.
-[Collection(McpServerCollection.Name)]
-public class RedactTextTests
+public class RedactTextTests : McpServerTestBase
 {
-    private readonly McpServerFixture _fixture;
     private readonly ITestOutputHelper _output;
 
-    public RedactTextTests(McpServerFixture fixture, ITestOutputHelper output)
+    public RedactTextTests(ITestOutputHelper output)
     {
-        _fixture = fixture;
         _output = output;
     }
 

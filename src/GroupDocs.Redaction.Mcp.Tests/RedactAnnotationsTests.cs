@@ -6,15 +6,12 @@ namespace GroupDocs.Redaction.Mcp.IntegrationTests;
 
 /// RedactAnnotations targets comments / sticky notes. annotated.xlsx ships with
 /// cell comments. Save() is permitted (watermarked) in evaluation mode.
-[Collection(McpServerCollection.Name)]
-public class RedactAnnotationsTests
+public class RedactAnnotationsTests : McpServerTestBase
 {
-    private readonly McpServerFixture _fixture;
     private readonly ITestOutputHelper _output;
 
-    public RedactAnnotationsTests(McpServerFixture fixture, ITestOutputHelper output)
+    public RedactAnnotationsTests(ITestOutputHelper output)
     {
-        _fixture = fixture;
         _output = output;
     }
 

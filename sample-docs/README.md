@@ -8,7 +8,10 @@ this folder to the test output via
 
 GroupDocs.Redaction permits `Save()` in evaluation mode (output is watermarked,
 not blocked), so these fixtures let every redaction tool be exercised
-end-to-end without a license.
+end-to-end without a license. Evaluation mode does, however, cap document opens
+at **one per process** ("Trial mode allows only 1 document to open"), so each
+test runs against its own fresh `dnx` server (see `McpServerTestBase`) and opens
+at most one of these documents.
 
 ## Provenance
 

@@ -9,15 +9,12 @@ namespace GroupDocs.Redaction.Mcp.IntegrationTests;
 /// Whether a given page region yields a redactable raster is content-dependent, so
 /// the happy-path assertion is tolerant: the call must complete and leave the
 /// server responsive; when it reports success, the redacted output must exist.
-[Collection(McpServerCollection.Name)]
-public class RedactImageAreaTests
+public class RedactImageAreaTests : McpServerTestBase
 {
-    private readonly McpServerFixture _fixture;
     private readonly ITestOutputHelper _output;
 
-    public RedactImageAreaTests(McpServerFixture fixture, ITestOutputHelper output)
+    public RedactImageAreaTests(ITestOutputHelper output)
     {
-        _fixture = fixture;
         _output = output;
     }
 

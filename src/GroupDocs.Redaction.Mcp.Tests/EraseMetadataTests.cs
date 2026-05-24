@@ -6,15 +6,12 @@ namespace GroupDocs.Redaction.Mcp.IntegrationTests;
 
 /// EraseMetadata calls Redactor.Save(), permitted (watermarked) in evaluation
 /// mode, so these tests verify output-file creation without a license.
-[Collection(McpServerCollection.Name)]
-public class EraseMetadataTests
+public class EraseMetadataTests : McpServerTestBase
 {
-    private readonly McpServerFixture _fixture;
     private readonly ITestOutputHelper _output;
 
-    public EraseMetadataTests(McpServerFixture fixture, ITestOutputHelper output)
+    public EraseMetadataTests(ITestOutputHelper output)
     {
-        _fixture = fixture;
         _output = output;
     }
 

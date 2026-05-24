@@ -5,7 +5,16 @@ namespace GroupDocs.Redaction.Mcp.IntegrationTests.Fixtures;
 
 /// Boots the published GroupDocs.Redaction.Mcp NuGet via `dnx` as a child process,
 /// wires an MCP stdio client, and seeds a temporary storage folder with sample
-/// documents. Shared across all tests in the same xUnit collection.
+/// documents.
+///
+/// Created once PER TEST METHOD (not shared) — see McpServerTestBase. Each test
+/// gets a fresh server process because GroupDocs.Redaction's evaluation mode caps
+/// document opens at ONE per process ("Trial mode allows only 1 document to
+/// open"). A single server shared across the suite would throw
+/// TrialLimitationsException on the second tool call. A fresh process per test
+/// resets that budget, and no single test opens more than one document. The suite
+/// runs fully UNLICENSED; a GROUPDOCS_LICENSE_PATH only removes the watermark and
+/// lifts the cap.
 public sealed class McpServerFixture : IAsyncLifetime
 {
     public string StoragePath { get; } = Path.Combine(
@@ -77,10 +86,4 @@ public sealed class McpServerFixture : IAsyncLifetime
             // Best-effort cleanup on Windows where handles may linger briefly.
         }
     }
-}
-
-[CollectionDefinition(Name)]
-public sealed class McpServerCollection : ICollectionFixture<McpServerFixture>
-{
-    public const string Name = "mcp-server";
 }

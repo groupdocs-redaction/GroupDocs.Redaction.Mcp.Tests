@@ -23,6 +23,8 @@ src/GroupDocs.Redaction.Mcp.Tests/
     ToolResponse.cs              ← CallToolResult text/JSON extraction
     CommandResolver.cs           ← cross-platform dnx.cmd resolution on Windows
     PackageVersion.cs            ← pulls version from env / assembly metadata / default
+  McpServerTestBase.cs           ← per-test base: spawns a FRESH server per test (1-doc trial cap)
+  AssemblyInfo.cs                ← [assembly: CollectionBehavior(DisableTestParallelization = true)]
   ToolDiscoveryTests.cs          ← handshake, tools/list, schema validation
   RedactTextTests.cs             ← DOCX + PDF happy-path, output file assertions
   EraseMetadataTests.cs          ← metadata field erasure, output file round-trip
@@ -81,7 +83,7 @@ dotnet test -c Release --filter "FullyQualifiedName~ToolDiscovery"
 
 2. **Real sample documents.** `sample-docs/` contains `sample.docx`, `sample.pdf`, `sample.xlsx`, and `annotated.xlsx`. The csproj auto-copies everything in `sample-docs/` to the test output. `McpServerFixture` seeds the server's storage path from that output folder.
 
-3. **Evaluation-mode behavior.** Unlike some other GroupDocs products, `GroupDocs.Redaction.Save()` **succeeds** in evaluation mode — it writes a watermarked copy. Tests therefore always assert output-file creation. A `GROUPDOCS_LICENSE_PATH` only removes the watermark; it does not affect whether a test passes.
+3. **Evaluation-mode behavior + per-test servers.** `GroupDocs.Redaction.Save()` **succeeds** in evaluation mode — it writes a watermarked copy — so tests assert output-file creation and a `GROUPDOCS_LICENSE_PATH` only removes the watermark. **However, evaluation mode caps document opens at ONE per process** ("Trial mode allows only 1 document to open"). So each test runs against its **own fresh `dnx` server** (`McpServerTestBase` news up `McpServerFixture` per test method) and opens at most one document; a shared server would throw `TrialLimitationsException` on the second tool call. `[assembly: CollectionBehavior(DisableTestParallelization = true)]` keeps launches serial so the first warms the package cache for the rest.
 
 4. **Output naming convention.** Every redaction tool writes `{name}_redacted{ext}` — e.g. `sample_redacted.pdf`. Tests resolve the expected output path from the input filename.
 

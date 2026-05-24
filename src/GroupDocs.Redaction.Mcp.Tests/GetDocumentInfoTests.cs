@@ -6,15 +6,12 @@ namespace GroupDocs.Redaction.Mcp.IntegrationTests;
 
 /// GetDocumentInfo is read-only — it never calls Save(), so it works identically
 /// in evaluation and licensed mode. Returns raw JSON describing the document.
-[Collection(McpServerCollection.Name)]
-public class GetDocumentInfoTests
+public class GetDocumentInfoTests : McpServerTestBase
 {
-    private readonly McpServerFixture _fixture;
     private readonly ITestOutputHelper _output;
 
-    public GetDocumentInfoTests(McpServerFixture fixture, ITestOutputHelper output)
+    public GetDocumentInfoTests(ITestOutputHelper output)
     {
-        _fixture = fixture;
         _output = output;
     }
 

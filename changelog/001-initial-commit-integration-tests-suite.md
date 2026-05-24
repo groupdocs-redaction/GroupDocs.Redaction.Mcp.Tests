@@ -14,6 +14,12 @@ type: feature
 - `McpServerFixture` launches the published `GroupDocs.Redaction.Mcp@26.5.0`
   package via `dnx` as a child process, wires an MCP stdio client, and seeds a
   temporary storage folder with sample documents from `sample-docs/`.
+- A **fresh server process per test** (`McpServerTestBase`) plus
+  `[assembly: CollectionBehavior(DisableTestParallelization = true)]`:
+  GroupDocs.Redaction's evaluation mode allows only **one document open per
+  process** ("Trial mode allows only 1 document to open"), so a shared server
+  would throw `TrialLimitationsException` on the second tool call. Each test
+  opens at most one document; serial execution warms the package cache once.
 - `SampleDocuments` / `McpServerFixture` copies `sample.docx`, `sample.pdf`,
   `sample.xlsx`, and `annotated.xlsx` from `sample-docs/` into the server's
   writable storage path at test startup.

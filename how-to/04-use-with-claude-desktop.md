@@ -28,7 +28,7 @@ Create the file if it doesn't exist.
     "groupdocs-redaction": {
       "type": "stdio",
       "command": "dnx",
-      "args": ["GroupDocs.Redaction.Mcp@26.5.1", "--yes"],
+      "args": ["GroupDocs.Redaction.Mcp@26.7.0", "--yes"],
       "env": {
         "GROUPDOCS_MCP_STORAGE_PATH": "/Users/you/Documents"
       }
@@ -77,7 +77,7 @@ where dnx.cmd        # Windows (from cmd)
       "args": [
         "run", "--rm", "-i",
         "-v", "/Users/you/Documents:/data",
-        "ghcr.io/groupdocs-redaction/redaction-net-mcp:26.5.1"
+        "ghcr.io/groupdocs-redaction/redaction-net-mcp:26.7.0"
       ]
     }
   }

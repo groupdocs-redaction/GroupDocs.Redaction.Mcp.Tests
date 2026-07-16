@@ -3,7 +3,7 @@
     "groupdocs-redaction": {
       "type": "stdio",
       "command": "dnx",
-      "args": ["GroupDocs.Redaction.Mcp@26.5.1", "--yes"],
+      "args": ["GroupDocs.Redaction.Mcp@26.7.0", "--yes"],
       "env": {
         "GROUPDOCS_MCP_STORAGE_PATH": "/absolute/path/to/documents"
       }
